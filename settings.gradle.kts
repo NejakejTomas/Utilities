@@ -18,3 +18,5 @@ dependencyResolutionManagement {
 }
 
 include(":utilities")
+include(":utilities-core")
+include(":utilities-compose")
