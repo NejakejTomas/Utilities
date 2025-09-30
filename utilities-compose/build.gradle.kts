@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.vanniktech.mavenPublish)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.composeMultiplatform)
     id("maven-publish")
 }
 
@@ -24,8 +26,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":utilities-core"))
-                api(project(":utilities-compose"))
+                implementation(compose.runtime)
+                implementation(libs.androidx.lifecycle.runtimeCompose)
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
     }
