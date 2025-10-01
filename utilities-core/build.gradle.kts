@@ -22,6 +22,11 @@ kotlin {
     }
     
     sourceSets {
+        all {
+            compilerOptions {
+                freeCompilerArgs.add("-Xcontext-parameters")
+            }
+        }
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlinx.coroutines.core)
