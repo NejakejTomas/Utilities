@@ -33,6 +33,12 @@ kotlin {
             }
         }
 
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.accompanist.permissions)
+            }
+        }
+
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
