@@ -1,3 +1,4 @@
+import org.gradle.internal.extensions.stdlib.capitalized
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -51,7 +52,7 @@ mavenPublishing {
     coordinates(group.toString(), project.name, version.toString())
 
     pom {
-        name = "Utilities"
+        name = project.name.split('-').joinToString(" ") { it.capitalized() }
         inceptionYear = "2025"
     }
 }
