@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.withContext
 
+@Suppress("unused")
 class EventQueue<T> : EventEmitter<T>(), EventSender<T> {
     private val channel = Channel<T>(Channel.UNLIMITED)
     override val flow: Flow<T>

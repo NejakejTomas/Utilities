@@ -29,14 +29,14 @@ kotlin {
         }
         val commonMain by getting {
             dependencies {
-                implementation(libs.kotlinx.coroutines.core)
+                api(libs.kotlinx.coroutines.core)
             }
         }
     }
 }
 
 android {
-    namespace = libs.versions.library.group.get()
+    namespace = "${libs.versions.library.group.get()}.${project.name.replace('-', '.')}"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

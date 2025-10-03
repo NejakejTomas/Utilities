@@ -35,7 +35,7 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation(libs.accompanist.permissions)
+                api(libs.accompanist.permissions)
             }
         }
 
@@ -43,17 +43,16 @@ kotlin {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.ui)
-                implementation(compose.foundation)
-                implementation(compose.material3)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
-                implementation(libs.kotlinx.coroutines.core)
+                api(compose.material3)
+                api(libs.kotlinx.coroutines.core)
             }
         }
     }
 }
 
 android {
-    namespace = libs.versions.library.group.get()
+    namespace = "${libs.versions.library.group.get()}.${project.name.replace('-', '.')}"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
