@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.vanniktech.mavenPublish)
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.kotlin.parcelize)
     id("maven-publish")
 }
 
@@ -26,11 +28,13 @@ kotlin {
         all {
             compilerOptions {
                 freeCompilerArgs.add("-Xcontext-parameters")
+                freeCompilerArgs.add("-Xexpect-actual-classes")
             }
         }
         val commonMain by getting {
             dependencies {
                 api(libs.kotlinx.coroutines.core)
+                implementation(libs.kotlinx.serialization.core)
             }
         }
     }

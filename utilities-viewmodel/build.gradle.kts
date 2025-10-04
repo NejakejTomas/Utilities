@@ -6,11 +6,17 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.vanniktech.mavenPublish)
+    alias(libs.plugins.kotlinx.serialization)
     id("maven-publish")
 }
 
 group = libs.versions.library.group.get()
 version = libs.versions.library.version.get()
+
+// This is not needed in normal environment
+configurations.all {
+    resolutionStrategy.cacheDynamicVersionsFor(0, TimeUnit.SECONDS)
+}
 
 kotlin {
     jvm()
@@ -21,13 +27,15 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_21)
         }
     }
-    
+
     sourceSets {
         val commonMain by getting {
             dependencies {
                 api(project(":utilities-core"))
-                api(project(":utilities-compose"))
-                api(project(":utilities-viewmodel"))
+                api(libs.androidx.lifecycle.savedstate)
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.androidx.lifecycle.viewmodelCompose)
+                implementation(libs.kotlinx.serialization.json)
             }
         }
     }
