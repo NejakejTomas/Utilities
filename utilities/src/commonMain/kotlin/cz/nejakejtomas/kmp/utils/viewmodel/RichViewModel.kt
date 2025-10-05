@@ -12,17 +12,17 @@ abstract class RichViewModel<SavedState : Savable, State : Any, UiState : Any, E
     savedStateHandle: SavedStateHandle,
     initialSavedState: SavedState,
 ) : SavableViewModel<SavedState, State, UiState>(savedStateHandle, initialSavedState) {
-    val events: EventEmitter<Event>
-        private field = EventQueue<Event>()
+    private val _events = EventQueue<Event>()
+    val events: EventEmitter<Event> = _events
 
     @Suppress("unused", "UnusedReceiverParameter")
     protected suspend fun CoroutineScope.send(event: Event) {
-        events.send(event)
+        _events.send(event)
     }
 
     protected fun send(event: Event) {
         launch {
-            events.send(event)
+            _events.send(event)
         }
     }
 }

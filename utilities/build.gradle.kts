@@ -23,11 +23,6 @@ kotlin {
     }
 
     sourceSets {
-        all {
-            languageSettings {
-                enableLanguageFeature("ExplicitBackingFields")
-            }
-        }
         val commonMain by getting {
             dependencies {
                 api(project(":utilities-core"))
