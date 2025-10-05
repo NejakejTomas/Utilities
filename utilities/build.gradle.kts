@@ -21,8 +21,13 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_21)
         }
     }
-    
+
     sourceSets {
+        all {
+            languageSettings {
+                enableLanguageFeature("ExplicitBackingFields")
+            }
+        }
         val commonMain by getting {
             dependencies {
                 api(project(":utilities-core"))

@@ -23,14 +23,13 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_21)
         }
     }
-    
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-parameters")
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+
     sourceSets {
-        all {
-            compilerOptions {
-                freeCompilerArgs.add("-Xcontext-parameters")
-                freeCompilerArgs.add("-Xexpect-actual-classes")
-            }
-        }
         val commonMain by getting {
             dependencies {
                 api(libs.kotlinx.coroutines.core)

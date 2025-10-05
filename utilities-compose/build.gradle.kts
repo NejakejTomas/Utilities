@@ -23,17 +23,12 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_21)
         }
     }
-    
-    sourceSets {
-        all {
-            compilerOptions {
-                freeCompilerArgs.add("-Xcontext-parameters")
-            }
-            languageSettings {
-//                enableLanguageFeature("ExplicitBackingFields")
-            }
-        }
 
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-parameters")
+    }
+
+    sourceSets {
         val androidMain by getting {
             dependencies {
                 api(libs.accompanist.permissions)
