@@ -37,6 +37,7 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
+                implementation(project(":utilities-core"))
                 implementation(compose.runtime)
                 implementation(compose.ui)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
