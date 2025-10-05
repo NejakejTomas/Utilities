@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.Dp
 
 @Suppress("unused", "UnusedReceiverParameter")
 @Composable
-fun ColumnScope.Space(size: Dp) {
-    Spacer(Modifier.height(size))
+fun ColumnScope.Space(height: Dp) {
+    Spacer(Modifier.height(height))
 }
 
 @Suppress("unused")
@@ -29,17 +29,17 @@ fun ColumnScope.Space(
 @Suppress("unused")
 @Composable
 fun ColumnScope.Space(
-    minSize: Dp,
+    minHeight: Dp,
     @FloatRange(from = 0.0, fromInclusive = false) weight: Float,
     fill: Boolean = true,
 ) {
-    Spacer(Modifier.sizeIn(minHeight = minSize).weight(weight = weight, fill = fill))
+    Spacer(Modifier.sizeIn(minHeight = minHeight).weight(weight = weight, fill = fill))
 }
 
 @Suppress("unused", "UnusedReceiverParameter")
 @Composable
-fun RowScope.Space(size: Dp) {
-    Spacer(Modifier.width(size))
+fun RowScope.Space(width: Dp) {
+    Spacer(Modifier.width(width))
 }
 
 @Suppress("unused")
@@ -54,9 +54,9 @@ fun RowScope.Space(
 @Suppress("unused")
 @Composable
 fun RowScope.Space(
-    minSize: Dp,
+    minWidth: Dp,
     @FloatRange(from = 0.0, fromInclusive = false) weight: Float,
     fill: Boolean = true,
 ) {
-    Spacer(Modifier.sizeIn(minWidth = minSize).weight(weight = weight, fill = fill))
+    Spacer(Modifier.sizeIn(minWidth = minWidth).weight(weight = weight, fill = fill))
 }
