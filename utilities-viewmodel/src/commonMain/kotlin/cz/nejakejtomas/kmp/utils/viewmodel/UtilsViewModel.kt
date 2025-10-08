@@ -9,4 +9,6 @@ import kotlin.coroutines.CoroutineContext
 open class UtilsViewModel : ViewModel(), CoroutineScope {
     final override val coroutineContext: CoroutineContext
         get() = viewModelScope.coroutineContext
+
+    open val features: Any = object {}
 }
