@@ -24,6 +24,7 @@ class EventQueue<T> : EventEmitter<T>, EventSender<T> {
     }
 }
 
+@Suppress("unused")
 context(scope: CoroutineScope)
 fun <T> EventQueue<T>.post(event: T) {
     scope.launch {

@@ -1,10 +1,10 @@
 package cz.nejakejtomas.kmp.utils.viewmodel.feature
 
 import androidx.lifecycle.SavedStateHandle
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 interface SavedStateFeature<SavedState> {
-    val savedState: StateFlow<SavedState>
+    val savedState: MutableStateFlow<SavedState>
 
     companion object {
         private val SAVED_STATE_KEY =
@@ -15,7 +15,7 @@ interface SavedStateFeature<SavedState> {
             initialValue: SavedState
         ): SavedStateFeature<SavedState> {
             return object : SavedStateFeature<SavedState> {
-                override val savedState: StateFlow<SavedState> =
+                override val savedState: MutableStateFlow<SavedState> =
                     savedStateHandle.getMutableStateFlow(SAVED_STATE_KEY, initialValue)
             }
         }
