@@ -1,9 +1,11 @@
 package cz.nejakejtomas.kmp.utils.core.events
 
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class EventQueue<T> : EventEmitter<T>, EventSender<T> {
@@ -19,5 +21,12 @@ class EventQueue<T> : EventEmitter<T>, EventSender<T> {
 
     override suspend fun send(event: T) = withContext(Dispatchers.Main) {
         channel.send(event)
+    }
+}
+
+context(scope: CoroutineScope)
+fun <T> EventQueue<T>.post(event: T) {
+    scope.launch {
+        send(event)
     }
 }
