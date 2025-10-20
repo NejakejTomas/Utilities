@@ -13,11 +13,6 @@ plugins {
 group = libs.versions.library.group.get()
 version = libs.versions.library.version.get()
 
-// This is not needed in normal environment
-configurations.all {
-    resolutionStrategy.cacheDynamicVersionsFor(0, TimeUnit.SECONDS)
-}
-
 kotlin {
     jvm()
     androidTarget {
