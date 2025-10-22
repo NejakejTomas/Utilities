@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -33,7 +32,8 @@ fun ColumnScope.Space(
     @FloatRange(from = 0.0, fromInclusive = false) weight: Float,
     fill: Boolean = true,
 ) {
-    Spacer(Modifier.sizeIn(minHeight = minHeight).weight(weight = weight, fill = fill))
+    Spacer(Modifier.height(minHeight))
+    Spacer(Modifier.weight(weight = weight, fill = fill))
 }
 
 @Suppress("unused", "UnusedReceiverParameter")
@@ -58,5 +58,6 @@ fun RowScope.Space(
     @FloatRange(from = 0.0, fromInclusive = false) weight: Float,
     fill: Boolean = true,
 ) {
-    Spacer(Modifier.sizeIn(minWidth = minWidth).weight(weight = weight, fill = fill))
+    Spacer(Modifier.width(minWidth))
+    Spacer(Modifier.weight(weight = weight, fill = fill))
 }
