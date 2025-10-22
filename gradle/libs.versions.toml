@@ -2,7 +2,7 @@
 android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
-library-version = "0.0.1"
+library-version = "9.9.9"
 library-group = "cz.nejakejtomas.kmp.utils"
 
 kotlinxCoroutinesCore = "1.10.2"
