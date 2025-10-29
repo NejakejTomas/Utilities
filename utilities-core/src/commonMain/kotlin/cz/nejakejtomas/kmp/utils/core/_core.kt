@@ -19,3 +19,8 @@ inline fun <R> runSuspendCatching(onCancel: (() -> Unit) = {}, block: () -> R): 
         Result.failure(e)
     }
 }
+
+@Suppress("unused")
+fun NoOp() {
+    // No-op
+}
