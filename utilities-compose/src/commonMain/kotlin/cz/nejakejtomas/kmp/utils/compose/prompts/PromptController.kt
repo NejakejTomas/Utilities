@@ -6,12 +6,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.job
 import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.coroutineContext
 import kotlin.uuid.Uuid
 
 typealias CreatePrompt<T, Context> = @Composable (
@@ -38,7 +38,7 @@ abstract class PromptController<T : Any, Context> {
         val id = id ?: Uuid.random()
         val deferred = CompletableDeferred<T?>()
         val requestContext =
-            RequestContext(coroutineContext, deferred, canSurviveProcessDeath, context)
+            RequestContext(currentCoroutineContext(), deferred, canSurviveProcessDeath, context)
 
         _activePrompts.update { it + (id to requestContext) }
 
