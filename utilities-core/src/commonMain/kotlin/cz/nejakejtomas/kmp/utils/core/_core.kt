@@ -20,7 +20,12 @@ inline fun <R> runSuspendCatching(onCancel: (() -> Unit) = {}, block: () -> R): 
     }
 }
 
-@Suppress("unused")
-fun NoOp() {
+@Suppress("unused", "NOTHING_TO_INLINE", "FunctionName")
+inline fun NoOp() {
+    // No-op
+}
+
+@Suppress("unused", "NOTHING_TO_INLINE", "FunctionName")
+inline fun NoOp(reason: String) {
     // No-op
 }
