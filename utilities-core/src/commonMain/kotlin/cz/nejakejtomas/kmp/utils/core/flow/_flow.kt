@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.stateIn
 import kotlin.experimental.ExperimentalTypeInference
 import kotlinx.coroutines.flow.combine as kotlinCombine
@@ -34,7 +35,7 @@ fun <T1, R> CoroutineScope.combine(
     transform(
         args[0] as T1,
     )
-}).asStateFlow(transform(flow1.value))
+}).distinctUntilChanged().asStateFlow(transform(flow1.value))
 
 @Suppress("unused", "UNCHECKED_CAST")
 fun <T1, T2, R> CoroutineScope.combine(
@@ -46,7 +47,7 @@ fun <T1, T2, R> CoroutineScope.combine(
         args[0] as T1,
         args[1] as T2,
     )
-}).asStateFlow(transform(flow1.value, flow2.value))
+}).distinctUntilChanged().asStateFlow(transform(flow1.value, flow2.value))
 
 @Suppress("unused", "UNCHECKED_CAST")
 fun <T1, T2, T3, R> CoroutineScope.combine(
@@ -60,7 +61,7 @@ fun <T1, T2, T3, R> CoroutineScope.combine(
         args[1] as T2,
         args[2] as T3,
     )
-}).asStateFlow(transform(flow1.value, flow2.value, flow3.value))
+}).distinctUntilChanged().asStateFlow(transform(flow1.value, flow2.value, flow3.value))
 
 @Suppress("unused", "UNCHECKED_CAST")
 fun <T1, T2, T3, T4, R> CoroutineScope.combine(
@@ -77,7 +78,8 @@ fun <T1, T2, T3, T4, R> CoroutineScope.combine(
             args[2] as T3,
             args[3] as T4,
         )
-    }).asStateFlow(transform(flow1.value, flow2.value, flow3.value, flow4.value))
+    }).distinctUntilChanged()
+        .asStateFlow(transform(flow1.value, flow2.value, flow3.value, flow4.value))
 
 @Suppress("unused", "UNCHECKED_CAST")
 fun <T1, T2, T3, T4, T5, R> CoroutineScope.combine(
@@ -96,7 +98,8 @@ fun <T1, T2, T3, T4, T5, R> CoroutineScope.combine(
             args[3] as T4,
             args[4] as T5,
         )
-    }).asStateFlow(transform(flow1.value, flow2.value, flow3.value, flow4.value, flow5.value))
+    }).distinctUntilChanged()
+        .asStateFlow(transform(flow1.value, flow2.value, flow3.value, flow4.value, flow5.value))
 
 @Suppress("unused", "UNCHECKED_CAST")
 fun <T1, T2, T3, T4, T5, T6, R> CoroutineScope.combine(
@@ -123,7 +126,7 @@ fun <T1, T2, T3, T4, T5, T6, R> CoroutineScope.combine(
             args[4] as T5,
             args[5] as T6,
         )
-    }).asStateFlow(
+    }).distinctUntilChanged().asStateFlow(
     transform(
         flow1.value,
         flow2.value,
@@ -162,7 +165,7 @@ fun <T1, T2, T3, T4, T5, T6, T7, R> CoroutineScope.combine(
             args[5] as T6,
             args[6] as T7,
         )
-    }).asStateFlow(
+    }).distinctUntilChanged().asStateFlow(
     transform(
         flow1.value,
         flow2.value,
@@ -205,7 +208,7 @@ fun <T1, T2, T3, T4, T5, T6, T7, T8, R> CoroutineScope.combine(
             args[6] as T7,
             args[7] as T8,
         )
-    }).asStateFlow(
+    }).distinctUntilChanged().asStateFlow(
     transform(
         flow1.value,
         flow2.value,
@@ -252,7 +255,7 @@ fun <T1, T2, T3, T4, T5, T6, T7, T8, T9, R> CoroutineScope.combine(
             args[7] as T8,
             args[8] as T9,
         )
-    }).asStateFlow(
+    }).distinctUntilChanged().asStateFlow(
     transform(
         flow1.value,
         flow2.value,
@@ -303,7 +306,7 @@ fun <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R> CoroutineScope.combine(
             args[8] as T9,
             args[9] as T10,
         )
-    }).asStateFlow(
+    }).distinctUntilChanged().asStateFlow(
     transform(
         flow1.value,
         flow2.value,
