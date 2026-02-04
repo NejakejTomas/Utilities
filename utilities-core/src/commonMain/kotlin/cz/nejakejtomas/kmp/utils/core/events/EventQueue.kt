@@ -9,14 +9,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class EventQueue<T> : EventEmitter<T>, EventSender<T> {
-    private val channel = Channel<T>(Channel.UNLIMITED)
+    private val channel = Channel<T>(capacity = Channel.UNLIMITED)
     private val flow: Flow<T>
         get() = channel.receiveAsFlow()
 
-    override suspend fun observe(observer: EventObserver<T>) {
+    override suspend fun observe(observer: EventObserver<T>): Nothing {
         withContext(Dispatchers.Main.immediate) {
             flow.collect(observer::emit)
         }
+
+        throw IllegalStateException()
     }
 
     override suspend fun send(event: T) = withContext(Dispatchers.Main) {
