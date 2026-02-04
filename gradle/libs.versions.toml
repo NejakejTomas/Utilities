@@ -6,15 +6,15 @@ library-version = "9.9.9"
 library-group = "cz.nejakejtomas.kmp.utils"
 
 kotlinxCoroutinesCore = "1.10.2"
-kotlinxSerializationJson = "1.9.0"
-kotlinxSerializationCore = "1.9.0"
+kotlinxSerializationJson = "1.10.0"
+kotlinxSerializationCore = "1.10.0"
 
-agp = "8.13.0"
+agp = "8.13.2"
 accompanistPermissions = "0.37.3"
-androidx-lifecycle = "2.9.5"
-composeMultiplatform = "1.9.1"
-kotlin = "2.2.21"
-mavenPublish = "0.34.0"
+androidx-lifecycle = "2.9.6"
+composeMultiplatform = "1.10.0"
+kotlin = "2.3.0"
+mavenPublish = "0.36.0"
 
 [libraries]
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
