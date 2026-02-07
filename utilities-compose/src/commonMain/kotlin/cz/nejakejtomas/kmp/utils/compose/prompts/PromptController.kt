@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,14 +18,14 @@ import kotlin.uuid.Uuid
 typealias CreatePrompt<T, Context> = @Composable (
     canSurviveProcessDeath: Boolean,
     context: Context,
-    onSubmit: (T?) -> Unit,
+    onSubmit: (T) -> Unit,
 ) -> Unit
 
 @Suppress("unused")
-abstract class PromptController<T : Any, Context> {
-    internal data class RequestContext<T : Any, Context>(
+abstract class PromptController<T, Context> {
+    internal data class RequestContext<T, Context>(
         val coroutineContext: CoroutineContext,
-        val deferred: CompletableDeferred<T?>,
+        val deferred: CompletableDeferred<T>,
         val canSurviveProcessDeath: Boolean,
         val context: Context
     )
@@ -33,10 +34,10 @@ abstract class PromptController<T : Any, Context> {
     internal val activePrompts = _activePrompts.asStateFlow()
 
     @Suppress("unused")
-    protected suspend fun request(context: Context, id: Uuid?): T? {
+    protected suspend fun request(context: Context, id: Uuid?): T {
         val canSurviveProcessDeath = id != null
         val id = id ?: Uuid.random()
-        val deferred = CompletableDeferred<T?>()
+        val deferred = CompletableDeferred<T>()
         val requestContext =
             RequestContext(currentCoroutineContext(), deferred, canSurviveProcessDeath, context)
 
@@ -49,19 +50,23 @@ abstract class PromptController<T : Any, Context> {
         }
     }
 
-    internal fun submit(id: Uuid, value: T?) {
+    internal fun submit(id: Uuid, value: T) {
         _activePrompts.value[id]?.deferred?.complete(value)
+    }
+
+    internal fun cancel(id: Uuid) {
+        _activePrompts.value[id]?.deferred?.completeExceptionally(CancellationException())
     }
 }
 
 @Composable
 @Suppress("unused")
-fun <T : Any, Context> PromptController<T, Context>.PromptHost(createPrompt: CreatePrompt<T, Context>) {
+fun <T, Context> PromptController<T, Context>.PromptHost(createPrompt: CreatePrompt<T, Context>) {
     val activePrompts by activePrompts.collectAsStateWithLifecycle()
 
     for ((id, request) in activePrompts) {
         key(id) {
-            val onCancel = { submit(id, null) }
+            val onCancel = { cancel(id) }
 
             // Close when context is closed
             LaunchedEffect(request.context) {
