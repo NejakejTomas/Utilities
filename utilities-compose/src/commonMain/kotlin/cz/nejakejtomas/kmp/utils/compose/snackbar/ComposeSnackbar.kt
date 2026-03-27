@@ -1,5 +1,6 @@
 package cz.nejakejtomas.kmp.utils.compose.snackbar
 
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -10,9 +11,15 @@ class ComposeSnackbar private constructor(
     private val snackbarHostState: SnackbarHostState,
     private val coroutineScope: CoroutineScope,
 ) : Snackbar {
-    override fun show(message: String) {
+    override fun show(message: String, duration: Snackbar.Duration) {
         coroutineScope.launch {
-            snackbarHostState.showSnackbar(message)
+            val duration = when (duration) {
+                Snackbar.Duration.Short -> SnackbarDuration.Short
+                Snackbar.Duration.Long -> SnackbarDuration.Long
+                Snackbar.Duration.Indefinite -> SnackbarDuration.Indefinite
+            }
+
+            snackbarHostState.showSnackbar(message = message, duration = duration)
         }
     }
 
