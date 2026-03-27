@@ -19,7 +19,11 @@ class ComposeSnackbar private constructor(
                 Snackbar.Duration.Indefinite -> SnackbarDuration.Indefinite
             }
 
-            snackbarHostState.showSnackbar(message = message, duration = duration)
+            snackbarHostState.showSnackbar(
+                message = message,
+                duration = duration,
+                withDismissAction = duration == SnackbarDuration.Indefinite
+            )
         }
     }
 
