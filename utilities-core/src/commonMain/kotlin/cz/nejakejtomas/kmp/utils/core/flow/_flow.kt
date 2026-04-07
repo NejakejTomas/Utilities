@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalTypeInference::class)
-
 package cz.nejakejtomas.kmp.utils.core.flow
 
 import kotlinx.coroutines.CoroutineScope
@@ -8,7 +6,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.stateIn
-import kotlin.experimental.ExperimentalTypeInference
 import kotlinx.coroutines.flow.combine as kotlinCombine
 
 context(scope: CoroutineScope)
@@ -24,13 +21,13 @@ internal inline fun <reified T, R> combineInternal(
 @Suppress("unused")
 inline fun <reified T, R> combine(
     vararg flows: Flow<T>,
-    @BuilderInference crossinline transform: (Array<T>) -> R
+    crossinline transform: (Array<T>) -> R
 ): Flow<R> = combineInternal<T, R>(flows = flows, transform = transform)
 
 @Suppress("unused", "UNCHECKED_CAST")
 fun <T1, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
-    @BuilderInference transform: (a: T1) -> R
+    transform: (a: T1) -> R
 ): StateFlow<R> = combineInternal<Any?, R>(flow1, transform = { args: Array<*> ->
     transform(
         args[0] as T1,
@@ -41,7 +38,7 @@ fun <T1, R> CoroutineScope.combine(
 fun <T1, T2, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
-    @BuilderInference transform: (a: T1, b: T2) -> R
+    transform: (a: T1, b: T2) -> R
 ): StateFlow<R> = combineInternal<Any?, R>(flow1, flow2, transform = { args: Array<*> ->
     transform(
         args[0] as T1,
@@ -54,7 +51,7 @@ fun <T1, T2, T3, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,
-    @BuilderInference transform: (a: T1, b: T2, c: T3) -> R
+    transform: (a: T1, b: T2, c: T3) -> R
 ): StateFlow<R> = combineInternal<Any?, R>(flow1, flow2, flow3, transform = { args: Array<*> ->
     transform(
         args[0] as T1,
@@ -69,7 +66,7 @@ fun <T1, T2, T3, T4, R> CoroutineScope.combine(
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,
     flow4: StateFlow<T4>,
-    @BuilderInference transform: (a: T1, b: T2, c: T3, d: T4) -> R
+    transform: (a: T1, b: T2, c: T3, d: T4) -> R
 ): StateFlow<R> =
     combineInternal<Any?, R>(flow1, flow2, flow3, flow4, transform = { args: Array<*> ->
         transform(
@@ -88,7 +85,7 @@ fun <T1, T2, T3, T4, T5, R> CoroutineScope.combine(
     flow3: StateFlow<T3>,
     flow4: StateFlow<T4>,
     flow5: StateFlow<T5>,
-    @BuilderInference transform: (a: T1, b: T2, c: T3, d: T4, e: T5) -> R
+    transform: (a: T1, b: T2, c: T3, d: T4, e: T5) -> R
 ): StateFlow<R> =
     combineInternal<Any?, R>(flow1, flow2, flow3, flow4, flow5, transform = { args: Array<*> ->
         transform(
@@ -109,7 +106,7 @@ fun <T1, T2, T3, T4, T5, T6, R> CoroutineScope.combine(
     flow4: StateFlow<T4>,
     flow5: StateFlow<T5>,
     flow6: StateFlow<T6>,
-    @BuilderInference transform: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6) -> R
+    transform: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6) -> R
 ): StateFlow<R> = combineInternal<Any?, R>(
     flow1,
     flow2,
@@ -146,7 +143,7 @@ fun <T1, T2, T3, T4, T5, T6, T7, R> CoroutineScope.combine(
     flow5: StateFlow<T5>,
     flow6: StateFlow<T6>,
     flow7: StateFlow<T7>,
-    @BuilderInference transform: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7) -> R
+    transform: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7) -> R
 ): StateFlow<R> = combineInternal<Any?, R>(
     flow1,
     flow2,
@@ -187,7 +184,7 @@ fun <T1, T2, T3, T4, T5, T6, T7, T8, R> CoroutineScope.combine(
     flow6: StateFlow<T6>,
     flow7: StateFlow<T7>,
     flow8: StateFlow<T8>,
-    @BuilderInference transform: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7, h: T8) -> R
+    transform: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7, h: T8) -> R
 ): StateFlow<R> = combineInternal<Any?, R>(
     flow1,
     flow2,
@@ -232,7 +229,7 @@ fun <T1, T2, T3, T4, T5, T6, T7, T8, T9, R> CoroutineScope.combine(
     flow7: StateFlow<T7>,
     flow8: StateFlow<T8>,
     flow9: StateFlow<T9>,
-    @BuilderInference transform: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7, h: T8, i: T9) -> R
+    transform: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7, h: T8, i: T9) -> R
 ): StateFlow<R> = combineInternal<Any?, R>(
     flow1,
     flow2,
@@ -281,7 +278,7 @@ fun <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R> CoroutineScope.combine(
     flow8: StateFlow<T8>,
     flow9: StateFlow<T9>,
     flow10: StateFlow<T10>,
-    @BuilderInference transform: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7, h: T8, i: T9, j: T10) -> R
+    transform: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7, h: T8, i: T9, j: T10) -> R
 ): StateFlow<R> = combineInternal<Any?, R>(
     flow1,
     flow2,
