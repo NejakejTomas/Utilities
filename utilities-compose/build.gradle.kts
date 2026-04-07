@@ -26,6 +26,7 @@ kotlin {
 
     compilerOptions {
         freeCompilerArgs.add("-Xcontext-parameters")
+        freeCompilerArgs.add("-Xreturn-value-checker=full")
         optIn.add("kotlin.uuid.ExperimentalUuidApi")
     }
 
@@ -42,6 +43,9 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.ui)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
+                implementation(libs.androidx.lifecycle.navigation3)
+                implementation(libs.navigation3.ui)
+
                 api(compose.material3)
                 api(libs.kotlinx.coroutines.core)
             }
