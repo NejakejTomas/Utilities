@@ -29,6 +29,22 @@ fun <T> MutableList<T>.removeLastIf(value: T): Boolean {
     return true
 }
 
+@IgnorableReturnValue
+@Suppress("unused")
+context(value: T)
+fun <T> MutableList<T>.removeLastIfCurrent(): Boolean {
+    if (lastOrNull() != value) return false
+
+    val last = removeLastOrNull()
+
+    if (last != value) {
+        last?.let(::add)
+        return false
+    }
+
+    return true
+}
+
 @Composable
 @PublishedApi
 internal fun <T : NavKey> rememberNavBackStack(
