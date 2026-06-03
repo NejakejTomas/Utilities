@@ -66,19 +66,17 @@ fun <T, Context> PromptController<T, Context>.PromptHost(createPrompt: CreatePro
 
     for ((id, request) in activePrompts) {
         key(id) {
-            val onCancel = { cancel(id) }
-
             // Close when context is closed
-            val rememberedHandle = remember(request.context) {
+            val rememberedHandle = remember(id, request.coroutineContext) {
                 request.coroutineContext.job.invokeOnCompletion {
-                    onCancel()
+                    cancel(id)
                 }
             }
 
-            createPrompt(request.canSurviveProcessDeath, request.context, {
+            createPrompt(request.canSurviveProcessDeath, request.context) {
                 submit(id, it)
                 rememberedHandle.dispose()
-            })
+            }
         }
     }
 }
