@@ -1,9 +1,9 @@
 package cz.nejakejtomas.kmp.utils.compose.prompts
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
@@ -69,13 +69,16 @@ fun <T, Context> PromptController<T, Context>.PromptHost(createPrompt: CreatePro
             val onCancel = { cancel(id) }
 
             // Close when context is closed
-            LaunchedEffect(request.context) {
+            val rememberedHandle = remember(request.context) {
                 request.coroutineContext.job.invokeOnCompletion {
                     onCancel()
                 }
             }
 
-            createPrompt(request.canSurviveProcessDeath, request.context, { submit(id, it) })
+            createPrompt(request.canSurviveProcessDeath, request.context, {
+                submit(id, it)
+                rememberedHandle.dispose()
+            })
         }
     }
 }
