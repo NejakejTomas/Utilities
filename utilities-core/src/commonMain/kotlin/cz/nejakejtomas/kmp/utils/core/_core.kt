@@ -20,6 +20,21 @@ inline fun <R> runSuspendCatching(onCancel: (() -> Unit) = {}, block: () -> R): 
     }
 }
 
+@Suppress("unused")
+inline fun <R, T> Result<T>.mapSuspendCatching(transform: (value: T) -> R): Result<R> {
+    return runSuspendCatching {
+        transform(getOrThrow())
+    }
+}
+
+@Suppress("unused")
+inline fun <R, T : R> Result<T>.recoverSuspendCatching(transform: (exception: Throwable) -> R): Result<R> {
+    return when (val exception = exceptionOrNull()) {
+        null -> this
+        else -> runSuspendCatching { transform(exception) }
+    }
+}
+
 @Suppress("unused", "NOTHING_TO_INLINE", "FunctionName")
 inline fun NoOp() {
     // No-op
