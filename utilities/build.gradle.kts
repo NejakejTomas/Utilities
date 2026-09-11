@@ -1,10 +1,9 @@
 import org.gradle.internal.extensions.stdlib.capitalized
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.androidKmpLibrary)
     alias(libs.plugins.vanniktech.mavenPublish)
     id("maven-publish")
 }
@@ -14,34 +13,22 @@ version = libs.versions.library.version.get()
 
 kotlin {
     jvm()
-    androidTarget {
-        publishLibraryVariants("release")
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    android {
+        namespace = "${libs.versions.library.group.get()}.${project.name.replace('-', '.')}"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_1_8)
         }
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api(project(":utilities-core"))
-                api(project(":utilities-compose"))
-                api(project(":utilities-viewmodel"))
-            }
+        commonMain.dependencies {
+            api(project(":utilities-core"))
+            api(project(":utilities-compose"))
+            api(project(":utilities-viewmodel"))
         }
-    }
-}
-
-android {
-    namespace = "${libs.versions.library.group.get()}.${project.name.replace('-', '.')}"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
