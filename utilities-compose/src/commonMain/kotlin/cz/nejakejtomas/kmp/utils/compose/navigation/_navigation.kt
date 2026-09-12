@@ -93,7 +93,7 @@ inline fun <Route : NavKey, Screen : Route, Dialog : Route> AppNavHost(
             rememberSaveableStateHolderNavEntryDecorator(),
             rememberViewModelStoreNavEntryDecorator(),
         ),
-        sceneStrategy = dialogStrategy,
+        sceneStrategies = listOf(dialogStrategy),
         entryProvider = entryProvider(builder = {
             screens(AppEntryProviderScope(this, backStack))
         }),

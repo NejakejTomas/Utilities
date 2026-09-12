@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.androidKmpLibrary)
     alias(libs.plugins.vanniktech.mavenPublish)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.composeMultiplatform)
     id("maven-publish")
 }
 
@@ -14,19 +13,22 @@ group = libs.versions.library.group.get()
 version = libs.versions.library.version.get()
 
 kotlin {
-    jvm()
+    jvm {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
+    }
     android {
         namespace = "${libs.versions.library.group.get()}.${project.name.replace('-', '.')}"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_1_8)
+            jvmTarget.set(JvmTarget.JVM_11)
         }
     }
 
     compilerOptions {
-        freeCompilerArgs.add("-Xcontext-parameters")
         freeCompilerArgs.add("-Xreturn-value-checker=full")
         optIn.add("kotlin.uuid.ExperimentalUuidApi")
     }
@@ -38,13 +40,13 @@ kotlin {
 
         commonMain.dependencies {
             implementation(project(":utilities-core"))
-            implementation(compose.runtime)
-            implementation(compose.ui)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.ui)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.androidx.lifecycle.navigation3)
             implementation(libs.navigation3.ui)
 
-            api(compose.material3)
+            api(libs.compose.material3)
             api(libs.kotlinx.coroutines.core)
         }
     }
