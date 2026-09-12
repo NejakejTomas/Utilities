@@ -27,6 +27,8 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
+    iosArm64()
+    iosSimulatorArm64()
 
     compilerOptions {
         freeCompilerArgs.add("-Xreturn-value-checker=full")

@@ -55,7 +55,12 @@ abstract class PromptController<T, Context> {
     }
 
     internal fun cancel(id: Uuid) {
-        _activePrompts.value[id]?.deferred?.completeExceptionally(CancellationException())
+        _activePrompts.value[id]?.deferred?.completeExceptionally(
+            CancellationException(
+                message = null,
+                cause = null,
+            )
+        )
     }
 }
 

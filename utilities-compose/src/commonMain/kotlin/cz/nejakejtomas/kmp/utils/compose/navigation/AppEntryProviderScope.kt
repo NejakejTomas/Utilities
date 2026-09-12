@@ -22,7 +22,7 @@ class AppEntryProviderScope<Route : NavKey, Screen : Route, Dialog : Route>(
     )
 
     inline fun <reified S : Screen> screen(
-        noinline clazzContentKey: (key: @JvmSuppressWildcards S) -> Any = { defaultContentKey(it) },
+        noinline clazzContentKey: (key: S) -> Any = { defaultContentKey(it) },
         metadata: Map<String, Any> = emptyMap(),
         noinline content: @Composable S.() -> Unit,
     ) {

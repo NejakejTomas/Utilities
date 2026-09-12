@@ -2,7 +2,9 @@ package cz.nejakejtomas.kmp.utils.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 
-private val STARTED_KEY: String = object {}.javaClass.name
+private class StartedKey
+
+private val STARTED_KEY: String = StartedKey::class.qualifiedName!!
 
 @Suppress("unused")
 suspend fun SavedStateHandle.ifNotRecreating(block: suspend () -> Unit) {
