@@ -8,14 +8,23 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class EventQueue<T> : EventEmitter<T>, EventSender<T> {
+@Deprecated(
+    message = "Renamed",
+    replaceWith = ReplaceWith(
+        expression = "UiEventQueue<T>",
+        imports = ["cz.nejakejtomas.kmp.utils.core.events.UiEventQueue"],
+    ),
+)
+typealias EventQueue<T> = UiEventQueue<T>
+
+class UiEventQueue<T> : EventEmitter<T>, EventSender<T> {
     private val channel = Channel<T>(capacity = Channel.UNLIMITED)
     private val flow: Flow<T>
         get() = channel.receiveAsFlow()
 
     override suspend fun observe(observer: EventObserver<T>): Nothing {
         withContext(Dispatchers.Main.immediate) {
-            flow.collect(observer::emit)
+            flow.collect(observer::onEvent)
         }
 
         throw IllegalStateException()
@@ -28,7 +37,7 @@ class EventQueue<T> : EventEmitter<T>, EventSender<T> {
 
 @Suppress("unused")
 context(scope: CoroutineScope)
-fun <T> EventQueue<T>.post(event: T) {
+fun <T> UiEventQueue<T>.post(event: T) {
     scope.launch {
         send(event)
     }
