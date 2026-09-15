@@ -3,7 +3,6 @@ package cz.nejakejtomas.kmp.utils.viewmodel
 import androidx.lifecycle.SavedStateHandle
 
 private class StartedKey
-
 private val STARTED_KEY: String = StartedKey::class.qualifiedName!!
 
 @Suppress("unused")
