@@ -46,8 +46,7 @@ fun <T> MutableList<T>.removeLastIfCurrent(): Boolean {
 }
 
 @Composable
-@PublishedApi
-internal fun <T : NavKey> rememberNavBackStack(
+fun <T : NavKey> rememberNavBackStack(
     elementSerializer: KSerializer<T>,
     vararg elements: T,
 ): NavBackStack<T> {
