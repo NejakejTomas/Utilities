@@ -19,7 +19,7 @@ import kotlinx.coroutines.withContext
 typealias EventQueue<T> = UiEventQueue<T>
 
 class UiEventQueue<T> : EventEmitter<T>, EventSender<T> {
-    private class Envelope<T>(val event: T, val origin: Throwable)
+    private class Envelope<T>(val event: T, val origin: Throwable?)
 
     private val channel = Channel<Envelope<T>>(capacity = Channel.UNLIMITED)
     private val flow: Flow<Envelope<T>>
@@ -31,7 +31,10 @@ class UiEventQueue<T> : EventEmitter<T>, EventSender<T> {
                 runSuspendCatching {
                     observer.onEvent(envelope.event)
                 }.onFailure {
-                    it.attachOrigin(envelope.origin)
+                    envelope.origin?.let { origin ->
+                        it.attachOrigin(origin)
+                    }
+
                     throw it
                 }
             }
@@ -45,7 +48,13 @@ class UiEventQueue<T> : EventEmitter<T>, EventSender<T> {
         origin = platformOrigin(),
     )
 
-    internal suspend fun send(event: T, origin: Throwable) = withContext(Dispatchers.Main) {
+    @DestroysStackTrace
+    suspend fun sendFast(event: T) = send(
+        event = event,
+        origin = null,
+    )
+
+    internal suspend fun send(event: T, origin: Throwable?) = withContext(Dispatchers.Main) {
         channel.send(
             Envelope(
                 event = event,
@@ -66,5 +75,14 @@ fun <T> UiEventQueue<T>.post(event: T) {
             event = event,
             origin = origin,
         )
+    }
+}
+
+@DestroysStackTrace
+@Suppress("unused")
+context(scope: CoroutineScope)
+fun <T> UiEventQueue<T>.postFast(event: T) {
+    scope.launch {
+        sendFast(event)
     }
 }
