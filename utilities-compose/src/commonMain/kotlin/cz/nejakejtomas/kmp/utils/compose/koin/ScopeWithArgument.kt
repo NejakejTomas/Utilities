@@ -29,6 +29,8 @@ public inline fun <reified T : Any> ScopeWithArgument(
         RetainedKoinScope(scope)
     }.scope
 
+    // This leaks entry in ViewModelStoreProvider, but is not elegantly solvable
+    // (ViewModelStoreProvider cannot delete a single key)
     val provider = rememberViewModelStoreProvider(key = scope.id)
     val owner = rememberViewModelStoreOwner(key = scope.id, provider = provider)
 

@@ -10,7 +10,8 @@ public class AppEntryProviderScope<Route : NavKey, Screen : Route, Dialog : Rout
     @PublishedApi internal val parent: EntryProviderScope<Route>,
     public val backStack: NavBackStack<Route>,
 ) {
-    private fun defaultContentKey(key: Any): Any = key.toString()
+    @PublishedApi
+    internal fun defaultContentKey(key: Any): Any = key.toString()
 
     public inline fun <reified D : Dialog> dialog(
         noinline content: @Composable D.() -> Unit,
