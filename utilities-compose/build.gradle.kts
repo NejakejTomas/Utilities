@@ -52,6 +52,7 @@ kotlin {
 
             api(libs.compose.material3)
             api(libs.kotlinx.coroutines.core)
+            api(libs.koin.compose)
         }
     }
 }
