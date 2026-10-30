@@ -10,24 +10,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 
-@Suppress("unused", "UnusedReceiverParameter")
+@Suppress("UnusedReceiverParameter")
 @Composable
-fun ColumnScope.Space(height: Dp) {
+public fun ColumnScope.Space(height: Dp) {
     Spacer(Modifier.height(height))
 }
 
-@Suppress("unused")
 @Composable
-fun ColumnScope.Space(
+public fun ColumnScope.Space(
     @FloatRange(from = 0.0, fromInclusive = false) weight: Float,
     fill: Boolean = true,
 ) {
     Spacer(Modifier.weight(weight = weight, fill = fill))
 }
 
-@Suppress("unused")
 @Composable
-fun ColumnScope.Space(
+public fun ColumnScope.Space(
     minHeight: Dp,
     @FloatRange(from = 0.0, fromInclusive = false) weight: Float,
     fill: Boolean = true,
@@ -36,24 +34,22 @@ fun ColumnScope.Space(
     Spacer(Modifier.weight(weight = weight, fill = fill))
 }
 
-@Suppress("unused", "UnusedReceiverParameter")
+@Suppress("UnusedReceiverParameter")
 @Composable
-fun RowScope.Space(width: Dp) {
+public fun RowScope.Space(width: Dp) {
     Spacer(Modifier.width(width))
 }
 
-@Suppress("unused")
 @Composable
-fun RowScope.Space(
+public fun RowScope.Space(
     @FloatRange(from = 0.0, fromInclusive = false) weight: Float,
     fill: Boolean = true,
 ) {
     Spacer(Modifier.weight(weight = weight, fill = fill))
 }
 
-@Suppress("unused")
 @Composable
-fun RowScope.Space(
+public fun RowScope.Space(
     minWidth: Dp,
     @FloatRange(from = 0.0, fromInclusive = false) weight: Float,
     fill: Boolean = true,

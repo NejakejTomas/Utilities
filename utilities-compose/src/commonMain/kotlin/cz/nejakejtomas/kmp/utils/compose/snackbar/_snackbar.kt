@@ -1,6 +1,8 @@
 package cz.nejakejtomas.kmp.utils.compose.snackbar
 
+import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.compositionLocalOf
 
 private val globalSnackbarHostState by lazy { SnackbarHostState() }
-val LocalSnackbar = compositionLocalOf { globalSnackbarHostState }
+public val LocalSnackbar: ProvidableCompositionLocal<SnackbarHostState> =
+    compositionLocalOf { globalSnackbarHostState }

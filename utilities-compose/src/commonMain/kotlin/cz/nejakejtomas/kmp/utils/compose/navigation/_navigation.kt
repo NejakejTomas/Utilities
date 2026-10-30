@@ -15,8 +15,7 @@ import androidx.navigation3.ui.NavDisplay
 import kotlinx.serialization.KSerializer
 
 @IgnorableReturnValue
-@Suppress("unused")
-fun <T> MutableList<T>.removeLastIf(value: T): Boolean {
+public fun <T> MutableList<T>.removeLastIf(value: T): Boolean {
     if (lastOrNull() != value) return false
 
     val last = removeLastOrNull()
@@ -30,9 +29,8 @@ fun <T> MutableList<T>.removeLastIf(value: T): Boolean {
 }
 
 @IgnorableReturnValue
-@Suppress("unused")
 context(value: T)
-fun <T> MutableList<T>.removeLastIfCurrent(): Boolean {
+public fun <T> MutableList<T>.removeLastIfCurrent(): Boolean {
     if (lastOrNull() != value) return false
 
     val last = removeLastOrNull()
@@ -46,7 +44,7 @@ fun <T> MutableList<T>.removeLastIfCurrent(): Boolean {
 }
 
 @Composable
-fun <T : NavKey> rememberNavBackStack(
+public fun <T : NavKey> rememberNavBackStack(
     elementSerializer: KSerializer<T>,
     vararg elements: T,
 ): NavBackStack<T> {
@@ -58,14 +56,13 @@ fun <T : NavKey> rememberNavBackStack(
 }
 
 @Composable
-@Suppress("unused")
-inline fun <Route : NavKey, Screen : Route, Dialog : Route> AppNavHost(
+public inline fun <Route : NavKey, Screen : Route, Dialog : Route> AppNavHost(
     startScreen: Screen,
     noinline onExit: () -> Unit,
     modifier: Modifier = Modifier,
     elementSerializer: KSerializer<Route>,
     screens: AppEntryProviderScope<Route, Screen, Dialog>.() -> Unit,
-) = AppNavHost(
+): Unit = AppNavHost(
     onExit = onExit,
     modifier = modifier,
     backStack = rememberNavBackStack(
@@ -76,8 +73,7 @@ inline fun <Route : NavKey, Screen : Route, Dialog : Route> AppNavHost(
 )
 
 @Composable
-@Suppress("unused")
-inline fun <Route : NavKey, Screen : Route, Dialog : Route> AppNavHost(
+public inline fun <Route : NavKey, Screen : Route, Dialog : Route> AppNavHost(
     noinline onExit: () -> Unit,
     modifier: Modifier = Modifier,
     backStack: NavBackStack<Route>,

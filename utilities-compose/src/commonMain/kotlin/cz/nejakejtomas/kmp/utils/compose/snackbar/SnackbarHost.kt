@@ -9,9 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.takeOrElse
 
-@Suppress("unused")
 @Composable
-fun SnackbarHost(
+public fun SnackbarHost(
     modifier: Modifier = Modifier,
     defaultColors: SnackbarColors = SnackbarDefaults.snackbarColors(
         containerColor = androidx.compose.material3.SnackbarDefaults.color,

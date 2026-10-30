@@ -29,6 +29,8 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    explicitApi()
+
     sourceSets {
         commonMain.dependencies {
             api(project(":utilities-core"))

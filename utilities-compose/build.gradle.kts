@@ -30,6 +30,8 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    explicitApi()
+
     compilerOptions {
         freeCompilerArgs.add("-Xreturn-value-checker=full")
         optIn.add("kotlin.uuid.ExperimentalUuidApi")

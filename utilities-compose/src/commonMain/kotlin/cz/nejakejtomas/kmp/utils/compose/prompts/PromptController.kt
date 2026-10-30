@@ -15,14 +15,13 @@ import kotlinx.coroutines.job
 import kotlin.coroutines.CoroutineContext
 import kotlin.uuid.Uuid
 
-typealias CreatePrompt<T, Context> = @Composable (
+public typealias CreatePrompt<T, Context> = @Composable (
     canSurviveProcessDeath: Boolean,
     context: Context,
     onSubmit: (T) -> Unit,
 ) -> Unit
 
-@Suppress("unused")
-abstract class PromptController<T, Context> {
+public abstract class PromptController<T, Context> {
     internal data class RequestContext<T, Context>(
         val coroutineContext: CoroutineContext,
         val deferred: CompletableDeferred<T>,
@@ -33,7 +32,6 @@ abstract class PromptController<T, Context> {
     private val _activePrompts = MutableStateFlow<Map<Uuid, RequestContext<T, Context>>>(emptyMap())
     internal val activePrompts = _activePrompts.asStateFlow()
 
-    @Suppress("unused")
     protected suspend fun request(context: Context, id: Uuid?): T {
         val canSurviveProcessDeath = id != null
         val id = id ?: Uuid.random()
@@ -65,8 +63,7 @@ abstract class PromptController<T, Context> {
 }
 
 @Composable
-@Suppress("unused")
-fun <T, Context> PromptController<T, Context>.PromptHost(createPrompt: CreatePrompt<T, Context>) {
+public fun <T, Context> PromptController<T, Context>.PromptHost(createPrompt: CreatePrompt<T, Context>) {
     val activePrompts by activePrompts.collectAsStateWithLifecycle()
 
     for ((id, request) in activePrompts) {

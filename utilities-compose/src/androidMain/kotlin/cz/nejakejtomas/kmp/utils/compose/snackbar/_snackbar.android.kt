@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-fun SnackbarHostState.show(
+public fun SnackbarHostState.show(
     coroutineScope: CoroutineScope,
     context: Context,
     @StringRes stringRes: Int
@@ -15,7 +15,7 @@ fun SnackbarHostState.show(
     }
 }
 
-fun SnackbarHostState.show(
+public fun SnackbarHostState.show(
     coroutineScope: CoroutineScope,
     context: Context,
     @StringRes stringRes: Int,
@@ -26,12 +26,10 @@ fun SnackbarHostState.show(
     }
 }
 
-@Suppress("unused")
 context(coroutineScope: CoroutineScope, context: Context)
-fun SnackbarHostState.show(@StringRes stringRes: Int): Unit =
+public fun SnackbarHostState.show(@StringRes stringRes: Int): Unit =
     show(coroutineScope, context, stringRes)
 
-@Suppress("unused")
 context(coroutineScope: CoroutineScope, context: Context)
-fun SnackbarHostState.show(@StringRes stringRes: Int, vararg formatArgs: Any): Unit =
+public fun SnackbarHostState.show(@StringRes stringRes: Int, vararg formatArgs: Any): Unit =
     show(coroutineScope, context, stringRes, *formatArgs)

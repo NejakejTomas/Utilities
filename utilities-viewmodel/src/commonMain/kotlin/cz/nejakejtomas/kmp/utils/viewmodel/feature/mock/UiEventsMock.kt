@@ -13,10 +13,9 @@ import kotlin.time.Duration
         imports = ["cz.nejakejtomas.kmp.utils.viewmodel.feature.mock.UiEventsMock"],
     ),
 )
-typealias EventsMock = UiEventsMock
+public typealias EventsMock = UiEventsMock
 
-@Suppress("unused")
-data object UiEventsMock : UiEventsFeature<Nothing> {
+public data object UiEventsMock : UiEventsFeature<Nothing> {
     override val events: EventEmitter<Nothing> = object : EventEmitter<Nothing> {
         override suspend fun observe(observer: EventObserver<Nothing>): Nothing {
             delay(Duration.INFINITE)

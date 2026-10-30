@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.combine as kotlinCombine
 
 context(scope: CoroutineScope)
-fun <T> Flow<T>.asStateFlow(initialValue: T): StateFlow<T> =
+public fun <T> Flow<T>.asStateFlow(initialValue: T): StateFlow<T> =
     stateIn(scope = scope, started = SharingStarted.Eagerly, initialValue)
 
 @PublishedApi
@@ -18,14 +18,13 @@ internal inline fun <reified T, R> combineInternal(
     crossinline transform: (Array<T>) -> R
 ): Flow<R> = kotlinCombine(flows = flows, transform = transform)
 
-@Suppress("unused")
-inline fun <reified T, R> combine(
+public inline fun <reified T, R> combine(
     vararg flows: Flow<T>,
     crossinline transform: (Array<T>) -> R
 ): Flow<R> = combineInternal<T, R>(flows = flows, transform = transform)
 
-@Suppress("unused", "UNCHECKED_CAST")
-fun <T1, R> CoroutineScope.combine(
+@Suppress("UNCHECKED_CAST")
+public fun <T1, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
     transform: (a: T1) -> R
 ): StateFlow<R> = combineInternal<Any?, R>(flow1, transform = { args: Array<*> ->
@@ -34,8 +33,8 @@ fun <T1, R> CoroutineScope.combine(
     )
 }).distinctUntilChanged().asStateFlow(transform(flow1.value))
 
-@Suppress("unused", "UNCHECKED_CAST")
-fun <T1, T2, R> CoroutineScope.combine(
+@Suppress("UNCHECKED_CAST")
+public fun <T1, T2, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     transform: (a: T1, b: T2) -> R
@@ -46,8 +45,8 @@ fun <T1, T2, R> CoroutineScope.combine(
     )
 }).distinctUntilChanged().asStateFlow(transform(flow1.value, flow2.value))
 
-@Suppress("unused", "UNCHECKED_CAST")
-fun <T1, T2, T3, R> CoroutineScope.combine(
+@Suppress("UNCHECKED_CAST")
+public fun <T1, T2, T3, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,
@@ -60,8 +59,8 @@ fun <T1, T2, T3, R> CoroutineScope.combine(
     )
 }).distinctUntilChanged().asStateFlow(transform(flow1.value, flow2.value, flow3.value))
 
-@Suppress("unused", "UNCHECKED_CAST")
-fun <T1, T2, T3, T4, R> CoroutineScope.combine(
+@Suppress("UNCHECKED_CAST")
+public fun <T1, T2, T3, T4, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,
@@ -78,8 +77,8 @@ fun <T1, T2, T3, T4, R> CoroutineScope.combine(
     }).distinctUntilChanged()
         .asStateFlow(transform(flow1.value, flow2.value, flow3.value, flow4.value))
 
-@Suppress("unused", "UNCHECKED_CAST")
-fun <T1, T2, T3, T4, T5, R> CoroutineScope.combine(
+@Suppress("UNCHECKED_CAST")
+public fun <T1, T2, T3, T4, T5, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,
@@ -98,8 +97,8 @@ fun <T1, T2, T3, T4, T5, R> CoroutineScope.combine(
     }).distinctUntilChanged()
         .asStateFlow(transform(flow1.value, flow2.value, flow3.value, flow4.value, flow5.value))
 
-@Suppress("unused", "UNCHECKED_CAST")
-fun <T1, T2, T3, T4, T5, T6, R> CoroutineScope.combine(
+@Suppress("UNCHECKED_CAST")
+public fun <T1, T2, T3, T4, T5, T6, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,
@@ -134,8 +133,8 @@ fun <T1, T2, T3, T4, T5, T6, R> CoroutineScope.combine(
     )
 )
 
-@Suppress("unused", "UNCHECKED_CAST")
-fun <T1, T2, T3, T4, T5, T6, T7, R> CoroutineScope.combine(
+@Suppress("UNCHECKED_CAST")
+public fun <T1, T2, T3, T4, T5, T6, T7, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,
@@ -174,8 +173,8 @@ fun <T1, T2, T3, T4, T5, T6, T7, R> CoroutineScope.combine(
     )
 )
 
-@Suppress("unused", "UNCHECKED_CAST")
-fun <T1, T2, T3, T4, T5, T6, T7, T8, R> CoroutineScope.combine(
+@Suppress("UNCHECKED_CAST")
+public fun <T1, T2, T3, T4, T5, T6, T7, T8, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,
@@ -218,8 +217,8 @@ fun <T1, T2, T3, T4, T5, T6, T7, T8, R> CoroutineScope.combine(
     )
 )
 
-@Suppress("unused", "UNCHECKED_CAST")
-fun <T1, T2, T3, T4, T5, T6, T7, T8, T9, R> CoroutineScope.combine(
+@Suppress("UNCHECKED_CAST")
+public fun <T1, T2, T3, T4, T5, T6, T7, T8, T9, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,
@@ -266,8 +265,8 @@ fun <T1, T2, T3, T4, T5, T6, T7, T8, T9, R> CoroutineScope.combine(
     )
 )
 
-@Suppress("unused", "UNCHECKED_CAST")
-fun <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R> CoroutineScope.combine(
+@Suppress("UNCHECKED_CAST")
+public fun <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R> CoroutineScope.combine(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,

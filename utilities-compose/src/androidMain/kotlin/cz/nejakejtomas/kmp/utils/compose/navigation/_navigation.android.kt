@@ -7,13 +7,12 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.serialization.NavKeySerializer
 
 @Composable
-@Suppress("unused")
-inline fun <Route : NavKey, Screen : Route, Dialog : Route> AppNavHost(
+public inline fun <Route : NavKey, Screen : Route, Dialog : Route> AppNavHost(
     startScreen: Screen,
     noinline onExit: () -> Unit,
     modifier: Modifier = Modifier,
     screens: AppEntryProviderScope<Route, Screen, Dialog>.() -> Unit,
-) = AppNavHost(
+): Unit = AppNavHost(
     onExit = onExit,
     modifier = modifier,
     backStack = rememberNavBackStack(
@@ -23,8 +22,7 @@ inline fun <Route : NavKey, Screen : Route, Dialog : Route> AppNavHost(
 )
 
 @Composable
-@Suppress("unused")
-fun <T : NavKey> rememberNavBackStack(
+public fun <T : NavKey> rememberNavBackStack(
     vararg elements: T,
 ): NavBackStack<T> = rememberNavBackStack(
     elementSerializer = NavKeySerializer(),

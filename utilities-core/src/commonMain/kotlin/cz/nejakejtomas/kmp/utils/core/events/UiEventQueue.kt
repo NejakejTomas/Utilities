@@ -16,9 +16,9 @@ import kotlinx.coroutines.withContext
         imports = ["cz.nejakejtomas.kmp.utils.core.events.UiEventQueue"],
     ),
 )
-typealias EventQueue<T> = UiEventQueue<T>
+public typealias EventQueue<T> = UiEventQueue<T>
 
-class UiEventQueue<T> : EventEmitter<T>, EventSender<T> {
+public class UiEventQueue<T> : EventEmitter<T>, EventSender<T> {
     private class Envelope<T>(val event: T, val origin: Throwable?)
 
     private val channel = Channel<Envelope<T>>(capacity = Channel.UNLIMITED)
@@ -43,13 +43,13 @@ class UiEventQueue<T> : EventEmitter<T>, EventSender<T> {
         throw IllegalStateException()
     }
 
-    override suspend fun send(event: T) = send(
+    public override suspend fun send(event: T): Unit = send(
         event = event,
         origin = platformOrigin(),
     )
 
     @DestroysStackTrace
-    suspend fun sendFast(event: T) = send(
+    public suspend fun sendFast(event: T): Unit = send(
         event = event,
         origin = null,
     )
@@ -64,9 +64,8 @@ class UiEventQueue<T> : EventEmitter<T>, EventSender<T> {
     }
 }
 
-@Suppress("unused")
 context(scope: CoroutineScope)
-fun <T> UiEventQueue<T>.post(event: T) {
+public fun <T> UiEventQueue<T>.post(event: T) {
     // DO NOT INLINE - needs to have call stack before launch
     val origin = platformOrigin()
 
@@ -79,9 +78,8 @@ fun <T> UiEventQueue<T>.post(event: T) {
 }
 
 @DestroysStackTrace
-@Suppress("unused")
 context(scope: CoroutineScope)
-fun <T> UiEventQueue<T>.postFast(event: T) {
+public fun <T> UiEventQueue<T>.postFast(event: T) {
     scope.launch {
         sendFast(event)
     }

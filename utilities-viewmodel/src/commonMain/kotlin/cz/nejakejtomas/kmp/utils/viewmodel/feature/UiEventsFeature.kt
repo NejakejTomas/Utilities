@@ -9,9 +9,8 @@ import cz.nejakejtomas.kmp.utils.core.events.EventEmitter
         imports = ["cz.nejakejtomas.kmp.utils.viewmodel.feature.UiEventsFeature"],
     ),
 )
-typealias EventsFeature<Event> = UiEventsFeature<Event>
+public typealias EventsFeature<Event> = UiEventsFeature<Event>
 
-@Suppress("unused")
-interface UiEventsFeature<Event> {
-    val events: EventEmitter<Event>
+public interface UiEventsFeature<Event> {
+    public val events: EventEmitter<Event>
 }

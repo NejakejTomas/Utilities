@@ -8,8 +8,7 @@ import com.google.accompanist.permissions.PermissionState
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-@Suppress("unused")
-fun rememberAlwaysGrantedPermissionState(
+public fun rememberAlwaysGrantedPermissionState(
     permission: String = "",
     onPermissionResult: (Boolean) -> Unit = {}
 ): PermissionState {

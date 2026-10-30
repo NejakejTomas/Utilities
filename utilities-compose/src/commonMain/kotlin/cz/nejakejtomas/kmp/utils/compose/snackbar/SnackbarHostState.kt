@@ -4,15 +4,14 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 
-@Suppress("unused")
-class SnackbarHostState {
+public class SnackbarHostState {
     internal val materialSnackbarHostState = SnackbarHostState()
 
     internal suspend fun show(snackbarVisuals: SnackbarVisuals): SnackbarResult {
         return materialSnackbarHostState.showSnackbar(snackbarVisuals)
     }
 
-    suspend fun show(
+    public suspend fun show(
         message: String,
         actionLabel: String? = null,
         withDismissAction: Boolean = false,

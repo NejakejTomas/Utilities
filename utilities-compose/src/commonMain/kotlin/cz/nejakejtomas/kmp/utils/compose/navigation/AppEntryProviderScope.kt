@@ -6,22 +6,23 @@ import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.scene.DialogSceneStrategy
 
-@Suppress("unused")
-class AppEntryProviderScope<Route : NavKey, Screen : Route, Dialog : Route>(
+public class AppEntryProviderScope<Route : NavKey, Screen : Route, Dialog : Route>(
     @PublishedApi internal val parent: EntryProviderScope<Route>,
-    val backStack: NavBackStack<Route>,
+    public val backStack: NavBackStack<Route>,
 ) {
     private fun defaultContentKey(key: Any): Any = key.toString()
 
-    inline fun <reified D : Dialog> dialog(
+    public inline fun <reified D : Dialog> dialog(
         noinline content: @Composable D.() -> Unit,
-    ) = parent.addEntryProvider(
-        clazz = D::class,
-        metadata = DialogSceneStrategy.dialog(),
-        content = content,
-    )
+    ) {
+        parent.addEntryProvider(
+            clazz = D::class,
+            metadata = DialogSceneStrategy.dialog(),
+            content = content,
+        )
+    }
 
-    inline fun <reified S : Screen> screen(
+    public inline fun <reified S : Screen> screen(
         noinline clazzContentKey: (key: S) -> Any = { defaultContentKey(it) },
         metadata: Map<String, Any> = emptyMap(),
         noinline content: @Composable S.() -> Unit,

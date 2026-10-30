@@ -6,4 +6,4 @@ package cz.nejakejtomas.kmp.utils.core.events
 )
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.FUNCTION)
-annotation class DestroysStackTrace
+public annotation class DestroysStackTrace

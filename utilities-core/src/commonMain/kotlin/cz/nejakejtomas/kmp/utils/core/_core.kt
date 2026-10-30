@@ -2,8 +2,7 @@ package cz.nejakejtomas.kmp.utils.core
 
 import kotlin.coroutines.cancellation.CancellationException
 
-@Suppress("unused")
-inline fun <R> runSuspendCatching(onCancel: (() -> Unit) = {}, block: () -> R): Result<R> {
+public inline fun <R> runSuspendCatching(onCancel: (() -> Unit) = {}, block: () -> R): Result<R> {
     return try {
         Result.success(block())
     } catch (e: Throwable) {
@@ -20,27 +19,25 @@ inline fun <R> runSuspendCatching(onCancel: (() -> Unit) = {}, block: () -> R): 
     }
 }
 
-@Suppress("unused")
-inline fun <R, T> Result<T>.mapSuspendCatching(transform: (value: T) -> R): Result<R> {
+public inline fun <R, T> Result<T>.mapSuspendCatching(transform: (value: T) -> R): Result<R> {
     return runSuspendCatching {
         transform(getOrThrow())
     }
 }
 
-@Suppress("unused")
-inline fun <R, T : R> Result<T>.recoverSuspendCatching(transform: (exception: Throwable) -> R): Result<R> {
+public inline fun <R, T : R> Result<T>.recoverSuspendCatching(transform: (exception: Throwable) -> R): Result<R> {
     return when (val exception = exceptionOrNull()) {
         null -> this
         else -> runSuspendCatching { transform(exception) }
     }
 }
 
-@Suppress("unused", "NOTHING_TO_INLINE", "FunctionName")
-inline fun NoOp() {
+@Suppress("NOTHING_TO_INLINE", "FunctionName")
+public inline fun NoOp() {
     // No-op
 }
 
-@Suppress("unused", "NOTHING_TO_INLINE", "FunctionName")
-inline fun NoOp(reason: String) {
+@Suppress("NOTHING_TO_INLINE", "FunctionName")
+public inline fun NoOp(reason: String) {
     // No-op
 }

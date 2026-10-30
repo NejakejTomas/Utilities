@@ -12,17 +12,16 @@ private class SavedStateKey
 @PublishedApi
 internal val SAVED_STATE_KEY: String = SavedStateKey::class.qualifiedName!!
 
-@Suppress("unused")
-object SavedState {
+public object SavedState {
     @Suppress("DeprecatedCallableAddReplaceWith")
     @Deprecated(message = "Deprecated, replace with delegated invoke")
-    operator fun <@Suppress("DEPRECATION") SavedState : Savable> invoke(
+    public operator fun <@Suppress("DEPRECATION") SavedState : Savable> invoke(
         savedStateHandle: SavedStateHandle,
         initialValue: SavedState
     ): MutableStateFlow<SavedState> =
         savedStateHandle.getMutableStateFlow(SAVED_STATE_KEY, initialValue)
 
-    inline operator fun <reified SavedState> invoke(
+    public inline operator fun <reified SavedState> invoke(
         savedStateHandle: SavedStateHandle,
         configuration: SavedStateConfiguration = SavedStateConfiguration.DEFAULT,
         noinline initialValue: () -> SavedState

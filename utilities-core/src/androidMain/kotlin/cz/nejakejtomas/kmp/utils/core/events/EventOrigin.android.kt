@@ -5,6 +5,7 @@ import cz.nejakejtomas.kmp.utils.core.runSuspendCatching
 internal actual fun platformOrigin() = Throwable()
 
 internal actual fun Throwable.attachOrigin(origin: Throwable) {
+    // TODO: What about a cause in the exception?
     if (stackTrace.isEmpty()) return
 
     runSuspendCatching {

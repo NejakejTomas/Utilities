@@ -8,8 +8,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-@Suppress("unused")
-fun BroadcastReceiver.runAsync(
+public fun BroadcastReceiver.runAsync(
     context: CoroutineContext = EmptyCoroutineContext,
     block: suspend CoroutineScope.(BroadcastReceiver.PendingResult) -> Unit
 ) {
