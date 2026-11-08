@@ -8,7 +8,7 @@ kotlinxCoroutinesCore = "1.11.0"
 kotlinxSerializationJson = "1.12.0"
 kotlinxSerializationCore = "1.12.0"
 
-agp = "9.5.0"
+agp = "9.5.1"
 accompanistPermissions = "0.37.3"
 androidx-lifecycle = "2.11.0"
 composeMultiplatform = "1.12.2"
