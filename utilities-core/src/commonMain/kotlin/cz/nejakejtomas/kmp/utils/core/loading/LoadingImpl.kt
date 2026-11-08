@@ -4,6 +4,7 @@ import cz.nejakejtomas.kmp.utils.core.flow.combine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 
 internal class LoadingImpl : Loading {
@@ -15,6 +16,32 @@ internal class LoadingImpl : Loading {
 
     override operator fun <T> invoke(block: () -> T): T {
         _state.update { it + 1 }
+
+        return try {
+            block()
+        } finally {
+            _state.update { it - 1 }
+        }
+    }
+
+    override fun <T : Any> ifNot(block: () -> T): T? {
+        _state.update {
+            if (it != 0) return null
+            it + 1
+        }
+
+        return try {
+            block()
+        } finally {
+            _state.update { it - 1 }
+        }
+    }
+
+    override suspend fun <T> after(block: () -> T): T {
+        do {
+            _state.first { it == 0 }
+        } while (!_state.compareAndSet(0, 1))
+
         return try {
             block()
         } finally {

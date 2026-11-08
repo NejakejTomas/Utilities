@@ -8,6 +8,8 @@ public interface Loading {
     public val state: StateFlow<Boolean>
 
     public operator fun <T> invoke(block: () -> T): T
+    public fun <T : Any> ifNot(block: () -> T): T?
+    public suspend fun <T> after(block: () -> T): T
 
     public companion object
 }
